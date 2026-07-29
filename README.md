@@ -7,7 +7,7 @@ A Retrieval-Augmented Generation (RAG) application that enables users to interac
 - Process YouTube videos using their URL
 - Fetch transcripts automatically
 - Store transcript embeddings in ChromaDB
-- Semantic search using HuggingFace embeddings
+- Semantic search using Google Gemini text-embedding-004
 - Context-aware question answering with Gemini
 - Session-based conversation history
 - Support for English and Hindi transcripts
@@ -26,7 +26,7 @@ A Retrieval-Augmented Generation (RAG) application that enables users to interac
 - Google Gemini 2.5 Flash
 
 **Embeddings**
-- BAAI/bge-base-en-v1.5
+- Google Gemini text-embedding-004
 
 **Vector Database**
 - ChromaDB
@@ -55,7 +55,7 @@ YoutubeKnowledgeAssistant/
 1. The user enters a YouTube video URL.
 2. The transcript is retrieved using the YouTube Transcript API.
 3. The transcript is split into smaller chunks.
-4. HuggingFace embeddings are generated for each chunk.
+4. Google Gemini embeddings are generated for each chunk.
 5. The embeddings are stored in ChromaDB.
 6. Relevant chunks are retrieved based on the user's query.
 7. Gemini generates an answer using the retrieved context.
