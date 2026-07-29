@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 import uuid
 
-API_URL = "http://127.0.0.1:8000"
+API_URL = "https://youtube-knowledge-backend-677j.onrender.com"
 
 st.set_page_config(
     page_title="YouTube Knowledge Assistant",
