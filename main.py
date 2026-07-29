@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from rag import (
@@ -8,8 +9,15 @@ from rag import (
 
 app = FastAPI(
     title="YouTube Knowledge Assistant",
-    description="YouTube RAG Chatbot using LangChain, Chroma, Ollama and FastAPI",
+    description="YouTube RAG Chatbot using LangChain, Chroma, Gemini and FastAPI",
     version="1.0.0"
+)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   # We'll tighten this later
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 class VideoRequest(BaseModel):
