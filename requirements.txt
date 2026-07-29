@@ -12,9 +12,6 @@ langchain-text-splitters
 langchain-chroma
 chromadb
 
-langchain-huggingface
-sentence-transformers
-
 langchain-google-genai
 google-generativeai
 
@@ -22,5 +19,3 @@ youtube-transcript-api
 
 python-dotenv
 
-torch
-transformers

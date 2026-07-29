@@ -2,7 +2,10 @@
 from urllib.parse import urlparse, parse_qs
 from youtube_transcript_api import YouTubeTranscriptApi
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from langchain_huggingface import HuggingFaceEmbeddings, HuggingFaceEndpoint
+from langchain_google_genai import (
+    ChatGoogleGenerativeAI,
+    GoogleGenerativeAIEmbeddings
+)
 from langchain_chroma import Chroma
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.prompts import (
@@ -28,8 +31,9 @@ llm = ChatGoogleGenerativeAI(
     temperature=0
 )
 
-embeddings = HuggingFaceEmbeddings(
-    model_name="BAAI/bge-base-en-v1.5"
+embeddings = GoogleGenerativeAIEmbeddings(
+    model="models/text-embedding-004",
+    google_api_key=GEMINI_API_KEY
 )
 
 
