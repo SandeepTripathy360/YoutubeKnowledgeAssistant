@@ -1,6 +1,6 @@
 
 from urllib.parse import urlparse, parse_qs
-from youtube_transcript_api import YouTubeTranscriptApi
+from supadata import Supadata
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_google_genai import (
     ChatGoogleGenerativeAI,
@@ -19,9 +19,11 @@ sessions = {}
 
 from dotenv import load_dotenv
 import os
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
-
 load_dotenv()
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+SUPADATA_API_KEY = os.getenv("SUPADATA_API_KEY")
+
+
 
 from langchain_google_genai import ChatGoogleGenerativeAI
 
@@ -30,11 +32,11 @@ llm = ChatGoogleGenerativeAI(
     google_api_key=GEMINI_API_KEY,
     temperature=0
 )
-
 embeddings = GoogleGenerativeAIEmbeddings(
-    model="models/text-embedding-004",
+    model="models/gemini-embedding-2",
     google_api_key=GEMINI_API_KEY
 )
+supadata = Supadata(api_key=SUPADATA_API_KEY)
 
 
 def extract_video_id(url: str):
@@ -63,25 +65,20 @@ def process_video(url: str, session_id: str):
 
     video_id = extract_video_id(url)
 
-    api = YouTubeTranscriptApi()
+    try:
+        transcript = supadata.transcript(
+            url=url,
+            text=True,
+            mode="auto"
+        )
 
-    transcript = api.fetch(
-    video_id,
-    languages=[
-        "en",
-        "hi",
-        "bn",
-        "ta",
-        "te",
-        "ml",
-        "kn"
-    ]
-)
+        transcript_text = transcript.content
 
-    transcript_text = " ".join(
-        chunk.text
-        for chunk in transcript
-    )
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": f"Transcript could not be fetched: {e}"
+        }
 
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000,
