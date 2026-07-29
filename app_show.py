@@ -29,7 +29,7 @@ with st.sidebar:
     st.markdown("""
 -  YouTube Transcript Extraction
 -  Recursive Text Splitting
--  HuggingFace Embeddings
+-  Gemini Embeddings
 -  Chroma Vector Database
 -  MMR Retrieval
 -  Gemini 2.5 Flash
